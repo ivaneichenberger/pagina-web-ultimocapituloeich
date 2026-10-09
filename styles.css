@@ -437,6 +437,8 @@ footer a {
 .cart-title {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -456,32 +458,79 @@ footer a {
 }
 
 .cart-item {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 76px 1fr auto;
+  gap: 14px;
+  align-items: start;
   padding: 18px 0;
   border-bottom: 1px solid var(--line);
 }
 
-.cart-item strong,
-.cart-item span {
+/* Miniatura: se ve la imagen completa, sin recortarse */
+.cart-thumb {
+  width: 76px;
+  aspect-ratio: 4 / 5;
+  background: #d9c2ac;
+  overflow: hidden;
+}
+
+.cart-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cart-info strong,
+.cart-info span {
   display: block;
 }
 
-.cart-item strong {
-  font-size: 23px;
+.cart-info strong {
+  font-size: 21px;
+  line-height: 1.05;
   font-weight: 500;
 }
 
-.cart-item span {
+.cart-info span {
   font: 10px "DM Mono", monospace;
   color: var(--wine);
-  margin-top: 4px;
+  margin: 5px 0 10px;
 }
 
 .quantity {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.cart-line {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.cart-line em {
+  font: normal 11px "DM Mono", monospace;
+  color: var(--wine);
+  white-space: nowrap;
+}
+
+.cart-line .remove {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--ink);
+  opacity: .6;
+  font-size: 9px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cart-line .remove:hover {
+  opacity: 1;
+  color: var(--wine);
 }
 
 .quantity button {
@@ -519,6 +568,54 @@ footer a {
 .whatsapp {
   width: 100%;
   margin-top: 10px;
+}
+
+/* ======================================================
+   BOTÓN FLOTANTE DEL CARRITO (abajo a la derecha)
+====================================================== */
+.cart-float {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 8;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--wine);
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--wine);
+  cursor: pointer;
+  box-shadow: 0 4px 14px #241b1726;
+  transition: transform .15s, background .15s, color .15s;
+}
+
+.cart-float:hover {
+  background: var(--wine);
+  color: var(--cream);
+  transform: translateY(-2px);
+}
+
+.cart-float .float-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: var(--wine);
+  color: var(--cream);
+  font: 9px "DM Mono", monospace;
+  letter-spacing: 0;
+}
+
+.cart-float .float-count[hidden] {
+  display: none;
 }
 
 /* ======================================================

@@ -152,20 +152,33 @@ function renderCart() {
   const cost = pricing();
 
   document.querySelector('.cart-count').textContent = quantity;
+
+  // Contador del botón flotante (solo se ve si hay productos)
+  const floatCount = document.querySelector('.float-count');
+  floatCount.textContent = quantity;
+  floatCount.hidden = !quantity;
+
   document.querySelector('[data-subtotal]').textContent = money.format(cost.subtotal);
   document.querySelector('[data-total]').textContent = money.format(cost.total);
   document.querySelector('[data-empty]').hidden = !!quantity;
 
   document.querySelector('[data-cart-items]').innerHTML = state.cart.map(p => `
     <div class="cart-item">
-      <div>
+      <div class="cart-thumb">
+        <img src="${p.image}" alt="${p.name}" onerror="this.remove()">
+      </div>
+      <div class="cart-info">
         <strong>${p.name}</strong>
         <span>${money.format(p.price)} c/u</span>
+        <div class="quantity">
+          <button data-qty="${p.id}" data-d="-1" aria-label="Restar uno">−</button>
+          <b>${p.quantity}</b>
+          <button data-qty="${p.id}" data-d="1" aria-label="Sumar uno">+</button>
+        </div>
       </div>
-      <div class="quantity">
-        <button data-qty="${p.id}" data-d="-1">−</button>
-        <b>${p.quantity}</b>
-        <button data-qty="${p.id}" data-d="1">+</button>
+      <div class="cart-line">
+        <em>${money.format(p.price * p.quantity)}</em>
+        <button class="remove" data-remove="${p.id}">Quitar</button>
       </div>
     </div>`).join('');
 }
@@ -220,13 +233,23 @@ document.querySelector('[data-add]').onclick = () => {
 };
 
 // Abrir / cerrar carrito
-document.querySelector('[data-open-cart]').onclick = openCart;
+document.querySelectorAll('[data-open-cart]').forEach(b => {
+  b.onclick = openCart;
+});
 document.querySelectorAll('[data-close-cart]').forEach(b => {
   b.onclick = closeCart;
 });
 
 // Sumar / restar cantidades
 document.querySelector('[data-cart-items]').onclick = e => {
+  // Quitar un producto completo
+  const r = e.target.closest('[data-remove]');
+  if (r) {
+    state.cart = state.cart.filter(x => x.id !== +r.dataset.remove);
+    renderCart();
+    return;
+  }
+
   const b = e.target.closest('[data-qty]');
   if (!b) return;
 
