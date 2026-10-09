@@ -1,6 +1,6 @@
 const products=[];
 const art={marcapaginas:['☾','✿','☀'],imanes:['♡','⌂','❀'],stickers:['▤','✦','“”']};
-for(let n=1;n<=16;n++)products.push({id:n,name:`Marcapáginas con imán ${String(n).padStart(2,'0')}`,category:'marcapaginas',categoryLabel:'Marcapáginas con imán',price:1300,image:`assets/marcapaginas_imagenes/marcapagina_imagen_${n}.png`,description:'Marcapáginas con imán hecho a mano para acompañar tus lecturas.'});
+for(let n=1;n<=16;n++)products.push({id:n,name:`Marcapáginas con imán ${String(n).padStart(2,'0')}`,category:'marcapaginas',categoryLabel:'Marcapáginas con imán',price:1300,image:`assets/marcapaginas_imagenes/marcapagina_imagen_${n}.jpeg`,description:'Marcapáginas con imán hecho a mano para acompañar tus lecturas.'});
 for(let n=1;n<=22;n++)products.push({id:100+n,name:`Imán ilustrado ${String(n).padStart(2,'0')}`,category:'imanes',categoryLabel:'Imanes',price:250,image:`assets/imanes_imagenes/iman_imagen_${n}.png`,description:'Imán ilustrado hecho a mano. Tiene hasta 5 cm de altura.'});
 for(let n=1;n<=18;n++)products.push({id:200+n,name:`Sticker ilustrado ${String(n).padStart(2,'0')}`,category:'stickers',categoryLabel:'Stickers',price:150,image:`assets/sticker_imagenes/sticker_imagen_${n}.png`,description:'Sticker ilustrado para decorar tus objetos favoritos.'});
 const state={filter:'all',selected:null,cart:[]},money=new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0});
